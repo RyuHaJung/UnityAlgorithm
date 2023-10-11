@@ -236,6 +236,8 @@ MonoBehaviour:
     afterDelay: 0.1
   - shotObj: {fileID: 1471331056}
     afterDelay: 0.1
+  - shotObj: {fileID: 1383063801}
+    afterDelay: 0.1
   updateStep: 0
 --- !u!65 &328113839
 BoxCollider:
@@ -317,6 +319,7 @@ Transform:
   - {fileID: 560379862}
   - {fileID: 2029851090}
   - {fileID: 1471331057}
+  - {fileID: 1383063802}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -712,6 +715,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1383063800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1383063802}
+  - component: {fileID: 1383063801}
+  m_Layer: 0
+  m_Name: PrintShot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1383063801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383063800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ff4812e6c6e5d42aa7ae485754e5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 2808178909601664996, guid: a66ff6eb51fbabc448152d62fdedb064, type: 3}
+  projectileNum: 50
+  projectileSpeed: 10
+  accelerationSpeed: 0
+  useMaxSpeed: 0
+  maxSpeed: 0
+  useMinSpeed: 0
+  minSpeed: 0
+  accelerationTurn: 0
+  usePauseAndResume: 0
+  pauseTime: 0
+  resumeTime: 0
+  useAutoRelease: 0
+  autoReleaseTime: 10
+  paintDataText: {fileID: 4900000, guid: 78379b7aa6ee3a94885cf86605a04aad, type: 3}
+  paintCenterAngle: 180
+  betweenAngle: 2
+  nextLineDelay: 0.1
+--- !u!4 &1383063802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383063800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 328113842}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471331054
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1471331056
 MonoBehaviour:
   m_ObjectHideFlags: 0
