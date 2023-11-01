@@ -45,10 +45,14 @@ public class SGProjectile : MonoBehaviour
     public float _DeadTimer = 30.0f;
     private float _DeadCheckTimer;
 
+    private SGProjectileGroup projectileGroup;
+
     private void Awake()
     {
         transformCache = transform;
         _DeadCheckTimer = 0.0f;
+
+        projectileGroup = GetComponent<SGProjectileGroup>();
     }
 
     public virtual void SetActive(bool isActive)
@@ -107,21 +111,21 @@ public class SGProjectile : MonoBehaviour
         if (inheritAngle && this.parentBaseShot.lockOnShot == false)
         {
             if (this.axisMove == SGUtil.AXIS.X_AND_Z)
-            {                
+            {
                 baseAngle = this.parentBaseShot.shotCtrl.transform.eulerAngles.y;
             }
             else
-            {               
+            {
                 baseAngle = this.parentBaseShot.shotCtrl.transform.eulerAngles.z;
             }
         }
 
         if (this.axisMove == SGUtil.AXIS.X_AND_Z)
-        {           
+        {
             transformCache.SetEulerAnglesY(baseAngle - this.angle);
         }
         else
-        {           
+        {
             transformCache.SetEulerAnglesZ(baseAngle + this.angle);
         }
 
@@ -129,7 +133,7 @@ public class SGProjectile : MonoBehaviour
         selfTimeCount = 0f;
 
         if (_reserveReleaseOnShot)
-        {           
+        {
             SGObjectPool.Instance.ReleaseProjectile(this, _reserveReleaseOnShotIsDestroy);
         }
     }
@@ -146,7 +150,7 @@ public class SGProjectile : MonoBehaviour
         if (useAutoRelease && autoReleaseTime > 0f)
         {
             if (selfTimeCount >= autoReleaseTime)
-            {              
+            {
                 SGObjectPool.Instance.ReleaseProjectile(this);
                 return;
             }
@@ -172,22 +176,22 @@ public class SGProjectile : MonoBehaviour
                 float rotAngle = SGUtil.GetAngleFromTwoPosition(transformCache, homingTarget, axisMove);
                 float myAngle = 0f;
                 if (axisMove == SGUtil.AXIS.X_AND_Z)
-                {                  
+                {
                     myAngle = -myAngles.y;
                 }
                 else
-                {                 
+                {
                     myAngle = myAngles.z;
                 }
 
                 float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, deltaTime * homingAngleSpeed);
 
                 if (axisMove == SGUtil.AXIS.X_AND_Z)
-                {                   
+                {
                     newRotation = Quaternion.Euler(myAngles.x, -toAngle, myAngles.z);
                 }
                 else
-                {                    
+                {
                     newRotation = Quaternion.Euler(myAngles.x, myAngles.y, toAngle);
                 }
             }
@@ -201,11 +205,11 @@ public class SGProjectile : MonoBehaviour
             {
                 float waveAngle = angle + (sinWaveRangeSize / 2f * (Mathf.Sin(selfFrameCnt * sinWaveSpeed / 100f) * (sinWaveInverse ? -1f : 1f)));
                 if (axisMove == SGUtil.AXIS.X_AND_Z)
-                {                   
+                {
                     newRotation = Quaternion.Euler(myAngles.x, baseAngle - waveAngle, myAngles.z);
                 }
                 else
-                {                   
+                {
                     newRotation = Quaternion.Euler(myAngles.x, myAngles.y, baseAngle + waveAngle);
                 }
             }
@@ -216,12 +220,12 @@ public class SGProjectile : MonoBehaviour
             // 엑셀레이션 설정
             float addAngle = accelTurn * deltaTime;
             if (axisMove == SGUtil.AXIS.X_AND_Z)
-            {               
+            {
                 newRotation = Quaternion.Euler(myAngles.x, myAngles.y - addAngle, myAngles.z);
             }
             else
             {
-                
+
                 newRotation = Quaternion.Euler(myAngles.x, myAngles.y, myAngles.z + addAngle);
             }
         }
@@ -254,7 +258,12 @@ public class SGProjectile : MonoBehaviour
 
         // 새로운 포지션과 로테이션 설정
         transformCache.SetPositionAndRotation(newPosition, newRotation);
-      
+
+        if (projectileGroup != null)
+        {
+            projectileGroup.UpdateRotate();
+        }
+
     }
     public void OnFinishedShot()
     {
